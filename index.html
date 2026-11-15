@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bahman — Backend Developer</title>
-<meta name="description" content="Bahman: backend developer building with Laravel, Go and Python.">
+<meta name="description" content="Bahman: backend developer building with Laravel and Go.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -130,7 +130,7 @@
   <header class="hero wrap">
     <div class="prompt mono">~/bahman026 $ whoami</div>
     <h1>Hi, I'm <span class="grad">Bahman</span>.</h1>
-    <p class="lead">Backend developer. I build <span class="typed" id="typed">e-commerce platforms</span><br>with Laravel, Go and Python.</p>
+    <p class="lead">Backend developer. I build <span class="typed" id="typed">e-commerce platforms</span><br>with Laravel and Go.</p>
     <div class="cta">
       <a class="btn primary" href="#projects">See my work ↓</a>
       <a class="btn" href="https://github.com/bahman026" target="_blank" rel="noopener">
@@ -181,7 +181,7 @@
     <div class="eyebrow mono">02 · Toolbox</div>
     <h2>Stack</h2>
     <div class="stack">
-      <div class="reveal"><h4 class="mono">// backend</h4><ul><li>PHP</li><li>Laravel</li><li>Filament</li><li>Go</li><li>Python</li></ul></div>
+      <div class="reveal"><h4 class="mono">// backend</h4><ul><li>PHP</li><li>Laravel</li><li>Filament</li><li>Go</li></ul></div>
       <div class="reveal"><h4 class="mono">// frontend</h4><ul><li>Vue 3</li><li>Inertia (SSR)</li><li>Next.js</li><li>TypeScript</li></ul></div>
       <div class="reveal"><h4 class="mono">// data</h4><ul><li>MySQL</li><li>PostgreSQL</li><li>Redis</li></ul></div>
       <div class="reveal"><h4 class="mono">// ops</h4><ul><li>Docker</li><li>Linux</li><li>Git</li><li>CI/CD</li></ul></div>
@@ -237,7 +237,7 @@
   document.querySelectorAll('.reveal').forEach(n => io.observe(n));
 
   // live repos from the public GitHub API
-  const colors = { PHP: '#777bb4', Go: '#00add8', Python: '#3572a5', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', Blade: '#f7523f', CSS: '#563d7c' };
+  const colors = { PHP: '#777bb4', Go: '#00add8', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', Blade: '#f7523f', CSS: '#563d7c' };
   const ago = d => {
     const s = (Date.now() - new Date(d)) / 1000, u = [[31536000,'y'],[2592000,'mo'],[86400,'d'],[3600,'h'],[60,'m']];
     for (const [n, l] of u) if (s >= n) return Math.floor(s / n) + l + ' ago';
@@ -247,7 +247,7 @@
   fetch('https://api.github.com/users/bahman026/repos?sort=pushed&per_page=12')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(list => {
-      list = list.filter(r => !r.fork && r.name !== 'bahman026' && r.name !== 'bahman026.github.io').slice(0, 6);
+      list = list.filter(r => !r.fork && r.language !== 'Python' && r.name !== 'bahman026' && r.name !== 'bahman026.github.io').slice(0, 6);
       box.innerHTML = '';
       for (const r of list) {
         const a = document.createElement('a');
