@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bahman — Backend Developer</title>
+<meta name="description" content="Bahman: backend developer building with Laravel, Go and Python.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0;
+    --a1: #0d9488; --a2: #6366f1; --a3: #db2777; --glow: rgba(99,102,241,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1020; --surface: #121933; --text: #e2e8f0; --muted: #94a3b8; --border: #1e2747;
+      --a1: #5eead4; --a2: #818cf8; --a3: #f472b6; --glow: rgba(129,140,248,.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1020; --surface: #121933; --text: #e2e8f0; --muted: #94a3b8; --border: #1e2747;
+    --a1: #5eead4; --a2: #818cf8; --a3: #f472b6; --glow: rgba(129,140,248,.18);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: Inter, system-ui, sans-serif; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+        background: color-mix(in srgb, var(--bg) 75%, transparent); border-bottom: 1px solid var(--border); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-weight: 800; text-decoration: none; letter-spacing: -.02em; }
+  .logo span { color: var(--a1); }
+  .links { display: flex; gap: 20px; align-items: center; }
+  .links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+  .links a:hover { color: var(--text); }
+  #theme { background: none; border: 1px solid var(--border); color: var(--text); border-radius: 8px;
+           width: 34px; height: 34px; cursor: pointer; font-size: 15px; }
+  @media (max-width: 560px) { .links a.hide-sm { display: none; } }
+
+  /* hero */
+  .hero { position: relative; padding: 110px 0 90px; }
+  .hero::before { content: ""; position: absolute; inset: -100px -30% auto auto; width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--glow), transparent 65%); pointer-events: none; z-index: -1; }
+  .prompt { color: var(--a1); font-size: 14px; }
+  h1 { font-size: clamp(44px, 8vw, 84px); line-height: 1.02; letter-spacing: -.04em; font-weight: 800; margin: 14px 0 18px; }
+  .grad { background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3), var(--a1)); background-size: 300% 100%;
+          -webkit-background-clip: text; background-clip: text; color: transparent; animation: shift 10s linear infinite; }
+  @keyframes shift { to { background-position: 300% 0; } }
+  .lead { font-size: clamp(17px, 2.2vw, 21px); color: var(--muted); max-width: 640px; }
+  .typed { color: var(--text); font-weight: 600; border-right: 2px solid var(--a1); padding-right: 3px;
+           animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { border-color: transparent; } }
+  .cta { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px;
+         font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--border);
+         transition: transform .15s, border-color .15s; }
+  .btn:hover { transform: translateY(-2px); border-color: var(--a2); }
+  .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  section { padding: 70px 0; }
+  .eyebrow { font-size: 13px; color: var(--a2); letter-spacing: .08em; text-transform: uppercase; }
+  h2 { font-size: clamp(28px, 4vw, 38px); letter-spacing: -.03em; margin: 6px 0 30px; }
+
+  /* projects */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px;
+          text-decoration: none; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden;
+          transition: transform .2s, border-color .2s, box-shadow .2s; }
+  .card:hover { transform: translateY(-4px); border-color: var(--a2); box-shadow: 0 14px 40px -18px var(--glow); }
+  .card h3 { font-size: 18px; letter-spacing: -.01em; display: flex; justify-content: space-between; align-items: center; }
+  .card h3 .arrow { color: var(--muted); transition: transform .2s; }
+  .card:hover h3 .arrow { transform: translate(3px,-3px); color: var(--a1); }
+  .card p { color: var(--muted); font-size: 14.5px; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); }
+
+  /* stack */
+  .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .stack div { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .stack h4 { font-size: 13px; color: var(--a1); margin-bottom: 10px; font-weight: 500; }
+  .stack ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack li { font-size: 14px; padding: 4px 10px; border-radius: 8px; background: color-mix(in srgb, var(--a2) 10%, transparent); }
+
+  /* live repos */
+  .repo-list { display: grid; gap: 10px; }
+  .repo { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; border: 1px solid var(--border);
+          border-radius: 12px; text-decoration: none; background: var(--surface); transition: border-color .15s; }
+  .repo:hover { border-color: var(--a1); }
+  .repo b { font-weight: 600; }
+  .repo small { color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; background: var(--a2); }
+  .note { color: var(--muted); font-size: 14px; }
+
+  footer { border-top: 1px solid var(--border); padding: 40px 0 60px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .6s; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">bahman<span>.</span></a>
+    <div class="links">
+      <a href="#projects">Projects</a>
+      <a href="#stack" class="hide-sm">Stack</a>
+      <a href="#activity" class="hide-sm">Activity</a>
+      <a href="https://github.com/bahman026" target="_blank" rel="noopener">GitHub</a>
+      <button id="theme" aria-label="Toggle theme">◐</button>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero wrap">
+    <div class="prompt mono">~/bahman026 $ whoami</div>
+    <h1>Hi, I'm <span class="grad">Bahman</span>.</h1>
+    <p class="lead">Backend developer. I build <span class="typed" id="typed">e-commerce platforms</span><br>with Laravel, Go and Python.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">See my work ↓</a>
+      <a class="btn" href="https://github.com/bahman026" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <section id="projects" class="wrap">
+    <div class="eyebrow mono">01 · Selected work</div>
+    <h2>Projects</h2>
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/bahman026/MemFlash" target="_blank" rel="noopener">
+        <h3>MemFlash <span class="arrow">↗</span></h3>
+        <p>Flashcards with spaced repetition, so you learn faster and remember longer.</p>
+        <div class="tags"><span class="tag">Laravel</span><span class="tag">PHP</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/bahman026/ShopFlow" target="_blank" rel="noopener">
+        <h3>ShopFlow <span class="arrow">↗</span></h3>
+        <p>Open-source store with separate admin and shop panels. Contributions welcome.</p>
+        <div class="tags"><span class="tag">Laravel</span><span class="tag">Next.js</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/bahman026/quick-translate-extension" target="_blank" rel="noopener">
+        <h3>Quick Translate <span class="arrow">↗</span></h3>
+        <p>Chrome extension that translates selected text and saves starred words to a vocabulary synced to your Google account.</p>
+        <div class="tags"><span class="tag">JavaScript</span><span class="tag">Chrome</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/bahman026/movieFinder" target="_blank" rel="noopener">
+        <h3>movieFinder <span class="arrow">↗</span></h3>
+        <p>Movie search service.</p>
+        <div class="tags"><span class="tag">Go</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/bahman026/Pinpath" target="_blank" rel="noopener">
+        <h3>Pinpath <span class="arrow">↗</span></h3>
+        <p>Side project.</p>
+        <div class="tags"><span class="tag">TypeScript</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/bahman026/php-design-patterns" target="_blank" rel="noopener">
+        <h3>PHP Design Patterns <span class="arrow">↗</span></h3>
+        <p>Classic design patterns implemented in modern PHP.</p>
+        <div class="tags"><span class="tag">PHP</span><span class="tag">OOP</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="stack" class="wrap">
+    <div class="eyebrow mono">02 · Toolbox</div>
+    <h2>Stack</h2>
+    <div class="stack">
+      <div class="reveal"><h4 class="mono">// backend</h4><ul><li>PHP</li><li>Laravel</li><li>Filament</li><li>Go</li><li>Python</li></ul></div>
+      <div class="reveal"><h4 class="mono">// frontend</h4><ul><li>Vue 3</li><li>Inertia (SSR)</li><li>Next.js</li><li>TypeScript</li></ul></div>
+      <div class="reveal"><h4 class="mono">// data</h4><ul><li>MySQL</li><li>PostgreSQL</li><li>Redis</li></ul></div>
+      <div class="reveal"><h4 class="mono">// ops</h4><ul><li>Docker</li><li>Linux</li><li>Git</li><li>CI/CD</li></ul></div>
+    </div>
+  </section>
+
+  <section id="activity" class="wrap">
+    <div class="eyebrow mono">03 · Live from GitHub</div>
+    <h2>Recently updated</h2>
+    <div class="repo-list" id="repos"><p class="note">Loading repositories…</p></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Bahman</span>
+    <a href="https://github.com/bahman026" target="_blank" rel="noopener">github.com/bahman026</a>
+  </div>
+</footer>
+
+<script>
+  // theme toggle (remembered per browser)
+  const root = document.documentElement, btn = document.getElementById('theme');
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  btn.addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // typing effect
+  const words = ['e-commerce platforms', 'learning tools', 'browser extensions', 'fast Go services', 'admin panels'];
+  const el = document.getElementById('typed');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let w = 0, i = words[0].length, del = true;
+    setTimeout(function tick() {
+      const word = words[w];
+      i += del ? -1 : 1;
+      el.textContent = word.slice(0, i);
+      let wait = del ? 40 : 80;
+      if (!del && i === word.length) { del = true; wait = 1800; }
+      else if (del && i === 0) { del = false; w = (w + 1) % words.length; wait = 300; }
+      setTimeout(tick, wait);
+    }, 2200);
+  }
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(n => io.observe(n));
+
+  // live repos from the public GitHub API
+  const colors = { PHP: '#777bb4', Go: '#00add8', Python: '#3572a5', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', Blade: '#f7523f', CSS: '#563d7c' };
+  const ago = d => {
+    const s = (Date.now() - new Date(d)) / 1000, u = [[31536000,'y'],[2592000,'mo'],[86400,'d'],[3600,'h'],[60,'m']];
+    for (const [n, l] of u) if (s >= n) return Math.floor(s / n) + l + ' ago';
+    return 'just now';
+  };
+  const box = document.getElementById('repos');
+  fetch('https://api.github.com/users/bahman026/repos?sort=pushed&per_page=12')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(list => {
+      list = list.filter(r => !r.fork && r.name !== 'bahman026' && r.name !== 'bahman026.github.io').slice(0, 6);
+      box.innerHTML = '';
+      for (const r of list) {
+        const a = document.createElement('a');
+        a.className = 'repo'; a.href = r.html_url; a.target = '_blank'; a.rel = 'noopener';
+        const left = document.createElement('div');
+        const name = document.createElement('b'); name.textContent = r.name;
+        const desc = document.createElement('div'); desc.className = 'note';
+        desc.textContent = r.description || '';
+        left.append(name, desc);
+        const right = document.createElement('small');
+        if (r.language) {
+          const dot = document.createElement('span'); dot.className = 'dot';
+          dot.style.background = colors[r.language] || 'var(--a2)';
+          right.append(dot, r.language + ' · ');
+        }
+        right.append('updated ' + ago(r.pushed_at));
+        a.append(left, right);
+        box.append(a);
+      }
+    })
+    .catch(() => {
+      box.innerHTML = '<p class="note">Couldn\'t load repositories right now. <a href="https://github.com/bahman026?tab=repositories">See them on GitHub →</a></p>';
+    });
+</script>
+</body>
+</html>
